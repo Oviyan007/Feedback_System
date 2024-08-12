@@ -1,0 +1,10 @@
+{% extends 'home/layout.html' %}
+{% include 'home/header.html' %}
+{% block body %}
+   hello
+{% for res in response %}
+    {{res.res}}
+
+{% endfor%}
+
+{% endblock %}

@@ -1,0 +1,624 @@
+{% extends 'home/layout.html' % }
+{% include 'home/header.html' %} 
+<style>
+    @include media-breakpoint-up(sm) {
+  h2{
+    font-size: 1.2rem;
+  }
+}
+</style>
+{% block body  %}
+        {% include 'home/navbar.html' %}
+            <div class="container">
+                <div class="form" style="margin-top: 100px;">
+                    
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            {% if user.role == 'STUDENT'%}
+                        
+                            <!-- section -1 question started -->
+                            <div class="container">
+                                <div class="form-check" style="text-align: left;">
+                                    <p class="font-weight-bold">A . Time Management</p>
+                                        <label class="from-check-label">Punctuality of the Faculty to the class</label>
+                                        <br>
+                                        
+                                        <div class="form-check d-inline " >
+                                            <input class="form-check-input" type="radio" name="option1" value="5" required >
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check d-inline ">
+                                                <input class="form-check-input" type="radio" name="option1" value="4" required>
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check d-inline ">
+                                            <input class="form-check-input" type="radio" name="option1" value="3" required>
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check d-inline "> 
+                                                <input class="form-check-input" type="radio" name="option1" value="2" required>
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check d-inline "> 
+                                            <input class="form-check-input" type="radio" name="option1" value="1" required>
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check" style="text-align: left;" >
+                                        <label class="from-check-label">Regularity of the Faculty in taking attendance in classes</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option2" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="option2" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option2" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="option2" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="option2" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <label class="from-check-label">Complete syllabus of the course in time for AT/Model Test</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option3" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="option3" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option3" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="option3" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="option3" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <label class="from-check-label">Regularity of the Faculty in taking attendance in classes </label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option4" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="option4" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option4" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="option4" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="option4" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <p class="font-weight-bold">B. Planning and Preparation of Subject Matters</p>
+                                        <label class="from-check-label">Focus on Syllabi  </label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option5" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="option5" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option5" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="option5" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="option5" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                
+                                    <div class="form-check" style="text-align: left;" >
+                                        <label class="from-check-label">Communication Skill  </label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option8" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="option8" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option8" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="option8" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="option8" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <label class="from-check-label">Teaching the subject matter  </label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option9" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="option9" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option9" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="option9" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="option9" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <label class="from-check-label">Skill of Linking subject to other subject   </label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option10" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="option10" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option10" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="option10" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="option10" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <label class="from-check-label">Assignment Strategies Followed </label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option11" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="option11" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option11" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="option11" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="option11" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <p class="font-weight-bold">C . Methodology of Teaching</p>
+                                        <label class="from-check-label">Use of Teaching aids (OHP, Black Board, PPT, Models / Simulation)  </label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option12" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="option12" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option12" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="option12" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="option12" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <label class="from-check-label">Uses of involving Teaching Methods  </label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option13" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="option13" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option13" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="option13" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="option13" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <label class="from-check-label">Clarify students doubt in the class  </label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option14" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="option14" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option14" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="option14" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="option14" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <p class="font-weight-bold">D . Faculty Attitude</p>
+                                        <label class="from-check-label">Helping approach towards varied responsibility to the institution </label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option15" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="option15" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option15" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="option15" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="option15" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <label class="from-check-label">Posture and Gesture   </label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option16" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="option16" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option16" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="option16" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="option16" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <label class="from-check-label">       </label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option17" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="option17" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option17" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="option17" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="option17" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <!-- section-1 question ended -->
+                                    <!-- Feedback for Laboratory -->
+                                    <p class="font-weight-bold h2"style="text-align: center;">Laboratory FeedBack</p>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <label class="from-check-label">Do you have enough tools and equipments to carry out Lab practices individually?  </label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="lab1" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="lab1" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="lab1" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="lab1" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="lab1" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <label class="from-check-label">Is the Lab clean, neat and spacious ?  </label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="lab2" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="lab2" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="lab2" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="lab2" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="lab2" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <label class="from-check-label">Are there enough safety precautions available in the Lab?  </label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="lab3" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="lab3" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="lab3" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="lab3" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="lab3" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <label class="from-check-label">How do you feel about the timings allotted to carry out each exercises ? </label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="lab4" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="lab4" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="lab4" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="lab4" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="lab4" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <label class="from-check-label">How do you feel about the timings given to complete the lab records? </label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="lab5" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="lab5" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="lab5" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="lab5" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="lab5" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <label class="from-check-label">Does the Lab-in charge and Lab instructors guide you to carry out exercises smoothly ? </label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="lab6" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="lab6" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="lab6" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="lab6" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="lab6" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <label class="from-check-label">Is your Lab-in charge open-minded and Unbiased ?</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="lab7" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="lab7" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="lab7" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="lab7" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="lab7" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <label class="from-check-label">Are the numbers of Lab instructors enough to help you in doing the work ?</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="lab8" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="lab8" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="lab8" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="lab8" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="lab8" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <label class="from-check-label">Are you free to express your inabilities, inconveniences and needs if any in the workshop ?</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="lab9" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="lab9" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="lab9" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="lab9" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="lab9" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check" style="text-align: left;" >
+                                        <label class="from-check-label">Is the entire Lab session, memorable and useful?</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="lab10" value="5">
+                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                        </div>
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="lab10" value="4">
+                                                <label for="Better" class="from-check-label">Better</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="lab10" value="3">
+                                            <label for="Good" class="from-check-label">Good</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                                <input class="form-check-input" type="radio" name="lab10" value="2">
+                                                <label for="Average" class="from-check-label">Average</label>
+                                        </div>
+                                        <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" name="lab10" value="1">
+                                            <label for="Average" class="from-check-label"> below Average</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- lab feedback ended -->
+                                    <div class="offset-4">
+                                    <input class="btn btn-primary" type="submit" value="Submit">
+                                    </div>
+                                
+                            </div>
+                        </form>
+                        {% else %}
+                        <h1>You are not able to answer </h1>
+                    
+                    </div>
+                            
+                    
+                </div>
+            </div>
+                        {% endif %}
+{% endblock %}

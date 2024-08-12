@@ -1,0 +1,35 @@
+*{
+    margin: 0px;
+    padding: 0px;  
+    
+    
+}
+.navbar-custom{
+    color:white;
+    font-size:20px;
+}
+.nav-link:hover{
+    color:orange;
+}
+
+h1{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.well{
+    box-shadow: 2px 2px 15px 0px black;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.well-login{
+    padding: 10px;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}

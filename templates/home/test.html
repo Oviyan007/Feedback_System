@@ -1,0 +1,156 @@
+{% extends 'home/layout.html' %}
+{% include 'home/header.html' %}
+{% block body %}
+    <!-- code for question 1 -->
+    <div class="container">
+        <div class="row">
+            <form method="post" action="" id="batchDepartmentForm">
+                {% csrf_token %}
+                <select name="year" id="batchSelect">
+                    <option>Select the batch</option>
+                    {% for ans in results %}
+                        <option>{{ ans.Batchyear }}</option>
+                    {% endfor %}
+                </select>
+                <select name="department" id="departmentSelect">
+                    <option>Select the department</option>
+                    {% for ans in results %}
+                        <option>{{ ans.department }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Submit" id="BatchButton" class="btn btn-primary" >
+                <!-- <a href="{{ request.get_full_path }}" class="btn btn-primary">Refresh</a> -->
+            </form>
+        </div>
+    </div>
+    <form method="post" action="">
+                            {% csrf_token %}
+                        <div class="container" id="contentContainer">
+                                <div class="form-check" style="text-align: left;">
+                                    <p class="font-weight-bold text-center">A . Time Management</p>
+                                        <label class="from-check-label font-weight-bold">Punctuality of the Faculty to the class</label>
+                                        <br>
+                                        {% for sub in subjects %}
+                                        {{sub.sub_code}}/{{sub.sub_name}}
+                                            <div class="form-check d-inline " >
+                                                <input class="form-check-input" type="radio" name="option{{sub.id}}" value="5" required >
+                                                <label for="Excellent"class="from-check-label">Excellent</label>
+                                            </div>
+                                            <div class="form-check d-inline ">
+                                                    <input class="form-check-input" type="radio" name="option{{sub.id}}" value="4" required>
+                                                    <label for="Better" class="from-check-label">Better</label>
+                                            </div>
+                                            <div class="form-check d-inline ">
+                                                <input class="form-check-input" type="radio" name="option{{sub.id}}" value="3" required>
+                                                <label for="Good" class="from-check-label">Good</label>
+                                            </div>
+                                            <div class="form-check d-inline "> 
+                                                    <input class="form-check-input" type="radio" name="option{{sub.id}}" value="2" required>
+                                                    <label for="Average" class="from-check-label">Average</label>
+                                            </div>
+                                            <div class="form-check d-inline "> 
+                                                <input class="form-check-input" type="radio" name="option{{sub.id}}" value="1" required>
+                                                <label for="Average" class="from-check-label"> below Average</label>
+                                                
+                                            </div>
+                                            <br>
+                                        {% endfor %}
+                                    </div>
+                                    <!-- code for question 2 -->
+                                    <div class="row">
+                                        <div class="form-check" style="text-align: left;">
+                                                <label class="from-check-label font-weight-bold">Regularity of the Faculty in taking classes</label>
+                                                <br>
+                                                {% for sub in subjects%}
+                                                {{sub.sub_code}}/{{sub.sub_name}}
+                                                    <div class="form-check d-inline " >
+                                                        <input class="form-check-input" type="radio" name="option{{sub.id}}" value="5" required >
+                                                        <label for="Excellent"class="from-check-label">Excellent</label>
+                                                    </div>
+                                                    <div class="form-check d-inline ">
+                                                            <input class="form-check-input" type="radio" name="option{{sub.id}}" value="4" required>
+                                                            <label for="Better" class="from-check-label">Better</label>
+                                                    </div>
+                                                    <div class="form-check d-inline ">
+                                                        <input class="form-check-input" type="radio" name="option{{sub.id}}" value="3" required>
+                                                        <label for="Good" class="from-check-label">Good</label>
+                                                    </div>
+                                                    <div class="form-check d-inline "> 
+                                                            <input class="form-check-input" type="radio" name="option{{sub.id}}" value="2" required>
+                                                            <label for="Average" class="from-check-label">Average</label>
+                                                    </div>
+                                                    <div class="form-check d-inline "> 
+                                                        <input class="form-check-input" type="radio" name="option{{sub.id}}" value="1" required>
+                                                        <label for="Average" class="from-check-label"> below Average</label>
+                                                    </div>
+                                                    <br>
+                                                {% endfor %}
+                                            </div>
+                                    </div>
+                                </div>
+                    
+                                        <!-- code for question 2 end -->
+                                         <h3>Lab</h3>
+                                         <div class="row">
+                                            <div class="form-check" style="text-align: left;">
+                                                    
+                                                    <label class="from-check-label font-weight-bold">Do you have enough tools and equipments to carry out Lab practices individually?  </label>
+                                                    <br>
+                                                    {% for lab in labs%}
+                                                    {{lab.sub_code}}/{{lab.sub_name}}
+                                                        <div class="form-check d-inline " >
+                                                            <input class="form-check-input" type="radio" name="option{{lab.id}}" value="5" required >
+                                                            <label for="Excellent"class="from-check-label">Excellent</label>
+                                                        </div>
+                                                        <div class="form-check d-inline ">
+                                                                <input class="form-check-input" type="radio" name="option{{lab.id}}" value="4" required>
+                                                                <label for="Better" class="from-check-label">Better</label>
+                                                        </div>
+                                                        <div class="form-check d-inline ">
+                                                            <input class="form-check-input" type="radio" name="option{{lab.id}}" value="3" required>
+                                                            <label for="Good" class="from-check-label">Good</label>
+                                                        </div>
+                                                        <div class="form-check d-inline "> 
+                                                                <input class="form-check-input" type="radio" name="option{{lab.id}}" value="2" required>
+                                                                <label for="Average" class="from-check-label">Average</label>
+                                                        </div>
+                                                        <div class="form-check d-inline "> 
+                                                            <input class="form-check-input" type="radio" name="option{{lab.id}}" value="1" required>
+                                                            <label for="Average" class="from-check-label"> below Average</label>
+                                                        </div>
+                                                        <br>
+                                                    {% endfor %}
+                                                </div>
+                                        </div>
+                                            <!-- code for question 16 end -->
+                                        <!-- code for question lab17 -->
+                
+
+                            </div>
+    </form>
+        <script>  // JavaScript to toggle content visibility based on batch and department selection
+            window.addEventListener('load', function () {
+            var batchSelect = document.getElementById('batchSelect');
+            var departmentSelect = document.getElementById('departmentSelect');
+            var contentContainer = document.getElementById('contentContainer');
+            var batchForm=document.getElementById('BatchButton')
+            
+            batchForm.addEventListener('submit',toggleContentVisibility)
+
+                    
+                      
+            function toggleContentVisibility() {
+                              // Check if both batch and department are selected
+                if (batchSelect.value !== 'Select the batch' && departmentSelect.value !== 'Select the department') {
+                        contentContainer.style.display = 'block';
+                        } else {
+                            contentContainer.style.display = 'none';
+                              }
+                          }
+                      });
+                      
+                      
+                      </script>
+
+    
+{% endblock %}

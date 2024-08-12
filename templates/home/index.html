@@ -1,0 +1,10 @@
+{% extends 'home/layout.html' %}
+{% include 'home/header.html' %} 
+{% block body %}
+{% include 'home/navbar.html' %}
+    {% if user.is_authenticated %}  
+         <h1 >welcome:{{user.username}}</h1>
+    {% else %}
+        <h1>Home Page</h1>
+    {% endif %}   
+{% endblock %}
