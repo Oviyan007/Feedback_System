@@ -33,23 +33,23 @@
                                         {% for sub in subjects %}
                                         {{sub.sub_code}}/{{sub.sub_name}}
                                             <div class="form-check d-inline " >
-                                                <input class="form-check-input" type="radio" name="option{{sub.id}}" value="5" required >
+                                                <input class="form-check-input" type="radio" name="P1{{sub.id}}" value="5" required >
                                                 <label for="Excellent"class="from-check-label">Excellent</label>
                                             </div>
                                             <div class="form-check d-inline ">
-                                                    <input class="form-check-input" type="radio" name="option{{sub.id}}" value="4" required>
+                                                    <input class="form-check-input" type="radio" name="P1{{sub.id}}" value="4" required>
                                                     <label for="Better" class="from-check-label">Better</label>
                                             </div>
                                             <div class="form-check d-inline ">
-                                                <input class="form-check-input" type="radio" name="option{{sub.id}}" value="3" required>
+                                                <input class="form-check-input" type="radio" name="P1{{sub.id}}" value="3" required>
                                                 <label for="Good" class="from-check-label">Good</label>
                                             </div>
                                             <div class="form-check d-inline "> 
-                                                    <input class="form-check-input" type="radio" name="option{{sub.id}}" value="2" required>
+                                                    <input class="form-check-input" type="radio" name="P1{{sub.id}}" value="2" required>
                                                     <label for="Average" class="from-check-label">Average</label>
                                             </div>
                                             <div class="form-check d-inline "> 
-                                                <input class="form-check-input" type="radio" name="option{{sub.id}}" value="1" required>
+                                                <input class="form-check-input" type="radio" name="P1{{sub.id}}" value="1" required>
                                                 <label for="Average" class="from-check-label"> below Average</label>
                                                 
                                             </div>
@@ -64,23 +64,23 @@
                                                 {% for sub in subjects%}
                                                 {{sub.sub_code}}/{{sub.sub_name}}
                                                     <div class="form-check d-inline " >
-                                                        <input class="form-check-input" type="radio" name="option{{sub.id}}" value="5" required >
+                                                        <input class="form-check-input" type="radio" name="P2{{sub.id}}" value="5" required >
                                                         <label for="Excellent"class="from-check-label">Excellent</label>
                                                     </div>
                                                     <div class="form-check d-inline ">
-                                                            <input class="form-check-input" type="radio" name="option{{sub.id}}" value="4" required>
+                                                            <input class="form-check-input" type="radio" name="P2{{sub.id}}" value="4" required>
                                                             <label for="Better" class="from-check-label">Better</label>
                                                     </div>
                                                     <div class="form-check d-inline ">
-                                                        <input class="form-check-input" type="radio" name="option{{sub.id}}" value="3" required>
+                                                        <input class="form-check-input" type="radio" name="P2{{sub.id}}" value="3" required>
                                                         <label for="Good" class="from-check-label">Good</label>
                                                     </div>
                                                     <div class="form-check d-inline "> 
-                                                            <input class="form-check-input" type="radio" name="option{{sub.id}}" value="2" required>
+                                                            <input class="form-check-input" type="radio" name="P2{{sub.id}}" value="2" required>
                                                             <label for="Average" class="from-check-label">Average</label>
                                                     </div>
                                                     <div class="form-check d-inline "> 
-                                                        <input class="form-check-input" type="radio" name="option{{sub.id}}" value="1" required>
+                                                        <input class="form-check-input" type="radio" name="P2{{sub.id}}" value="1" required>
                                                         <label for="Average" class="from-check-label"> below Average</label>
                                                     </div>
                                                     <br>
@@ -99,28 +99,33 @@
                                                     {% for lab in labs%}
                                                     {{lab.sub_code}}/{{lab.sub_name}}
                                                         <div class="form-check d-inline " >
-                                                            <input class="form-check-input" type="radio" name="option{{lab.id}}" value="5" required >
+                                                            <input class="form-check-input" type="radio" name="L1{{lab.id}}" value="5" required >
                                                             <label for="Excellent"class="from-check-label">Excellent</label>
                                                         </div>
                                                         <div class="form-check d-inline ">
-                                                                <input class="form-check-input" type="radio" name="option{{lab.id}}" value="4" required>
+                                                                <input class="form-check-input" type="radio" name="L1{{lab.id}}" value="4" required>
                                                                 <label for="Better" class="from-check-label">Better</label>
                                                         </div>
                                                         <div class="form-check d-inline ">
-                                                            <input class="form-check-input" type="radio" name="option{{lab.id}}" value="3" required>
+                                                            <input class="form-check-input" type="radio" name="L1{{lab.id}}" value="3" required>
                                                             <label for="Good" class="from-check-label">Good</label>
                                                         </div>
                                                         <div class="form-check d-inline "> 
-                                                                <input class="form-check-input" type="radio" name="option{{lab.id}}" value="2" required>
+                                                                <input class="form-check-input" type="radio" name="L1{{lab.id}}" value="2" required>
                                                                 <label for="Average" class="from-check-label">Average</label>
                                                         </div>
                                                         <div class="form-check d-inline "> 
-                                                            <input class="form-check-input" type="radio" name="option{{lab.id}}" value="1" required>
+                                                            <input class="form-check-input" type="radio" name="L1{{lab.id}}" value="1" required>
                                                             <label for="Average" class="from-check-label"> below Average</label>
                                                         </div>
                                                         <br>
                                                     {% endfor %}
                                                 </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input type="submit" value="Submit" class="btn btn-primary">
+                                            </div>
                                         </div>
                                             <!-- code for question 16 end -->
                                         <!-- code for question lab17 -->

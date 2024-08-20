@@ -1,5 +1,5 @@
 from gettext import translation
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 from .forms import RegistrationForm
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.views import LoginView
@@ -100,47 +100,46 @@ def profile(request):
 
 def test(request):
     subjects = None
+    labs = None
     obj1 = Batch.objects.all()
-    labs=None
 
     if request.method == 'POST':
         selected_batch_year = request.POST.get('year')
         selected_department = request.POST.get('department')
-       
 
-        subjects = Student_detail.objects.filter(Batch__Batchyear=selected_batch_year, Batch__department=selected_department,sub_type='SUBJECT')
-        
-        labs=Student_detail.objects.filter(
-            Batch__Batchyear=selected_batch_year,
-            Batch__department=selected_department,
-            sub_type='LABORATORY'
-        )
-      
+        subjects = Student_detail.objects.filter(Batch__Batchyear=selected_batch_year, Batch__department=selected_department, sub_type='SUBJECT')
+        labs = Student_detail.objects.filter(Batch__Batchyear=selected_batch_year, Batch__department=selected_department, sub_type='LABORATORY')
 
-      
-   
-     
+        for sub in subjects:
+            for i in range(1, 11):  # Assuming 10 questions per subject
+                field_name = f"P{i}{sub.id}"
+                # print(field_name)
+                ans = request.POST.get(field_name)
+                print(ans)
+                print(f"Field name: {field_name}, Answer: {ans}")
+                
+                if ans:
+                    FeedbackRes.objects.create(
+                        year=selected_batch_year,
+                        department=selected_department,
+                        res=int(ans),
+                        Qno=i
+                    )
+        for lab in labs:
+            for i in range(1, 11):  # Assuming 10 questions per lab
+                field_name = f"L{i}{lab.id}"
+                ans = request.POST.get(field_name)
+                if ans:
+                    FeedbackRes.objects.create(
+                        year=selected_batch_year,
+                        department=selected_department,
+                        res=int(ans),
+                        Qno=i
+                    )
 
-    # if subjects:
-    #         for sub in subjects:
-    #             # sub.sub_code/sub.sub_name
-    #             ans = request.POST.get(f"{sub.id}_q1")  # Assuming you are correctly naming your radio buttons
-    #             if ans:  # Check if answer is provided
-    #                 # Save to FeedbackRes model
-    #                 feedback_res = FeedbackRes(
-    #                     year=selected_batch_year,
-    #                     department=selected_department,
-    #                     sub_id=sub.id,
-    #                     res=ans
-    #                 )
-    #                 print("Debug message:", feedback_res)
-    #                 feedback_res.save()
+    print("Feedback saved successfully.")
 
-   
-    
-
-    
-    return render(request, 'home/fformnew.html', {'results': obj1, 'subjects': subjects,'labs':labs,})
+    return render(request, 'home/test.html', {'results': obj1, 'subjects': subjects, 'labs': labs})
     
     
 def submit(request):

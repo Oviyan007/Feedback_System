@@ -55,6 +55,7 @@ class FeedbackRes(models.Model):
     year = models.CharField(max_length=50,null=False,blank=False)
     department = models.CharField(max_length=50,null=False,blank=False)
     res=models.IntegerField(null=False,blank=False)
+    Qno=models.IntegerField(null=False)
     
 
 
