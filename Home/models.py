@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
+from django.db.models import Count
 
 
 DESIGNATION_CHOICES = [
@@ -40,7 +41,7 @@ class Batch(models.Model):
 SUBJECT_CHOICES=[ ('SUBJECT', 'Subject'),
             ('LABORATORY', 'Laboratory'),]
     
-class Student_detail(models.Model):
+class Subject_detail(models.Model):
     Batch=models.ForeignKey(Batch,on_delete=models.CASCADE,default='')
     sub_code=models.CharField(max_length=50,null=False,blank=False)
     sub_name=models.CharField(max_length=50,null=False,blank=False)
@@ -52,11 +53,10 @@ class Student_detail(models.Model):
         return f" {self.Batch}-------{self.sub_code}---{self.sub_name}"
     
 class FeedbackRes(models.Model):
-    year = models.CharField(max_length=50,null=False,blank=False)
-    department = models.CharField(max_length=50,null=False,blank=False)
-    res=models.IntegerField(null=False,blank=False)
-    Qno=models.IntegerField(null=False)
+    department = models.CharField(max_length=50)
+    Response=models.IntegerField(null=False)
+    Qno=models.IntegerField(null=True)
+    subject_detail = models.ForeignKey('Subject_detail', on_delete=models.CASCADE, null=True)
+    batch_year = models.CharField(max_length=10,null=False)
     
 
-
-    

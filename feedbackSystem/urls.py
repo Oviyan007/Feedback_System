@@ -32,5 +32,8 @@ urlpatterns = [
     # path("GetReview",views.Review_feedback,name='GetReview'),
     path('Test',views.test,name='Test'),
     path('Submit',views.submit,name='Submit'),
+    #report generating 
+    path('Score',views.feedback_score_view,name='Score'),
+    path('Report',views.feedback_report_view,name='Report'),
    
 ]

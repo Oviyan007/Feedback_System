@@ -18,16 +18,22 @@
           <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{% url 'Profile' %}">Profile</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{% url 'Logout' %}">Logout</a>
-          </li>
+          </li> -->
+          <form id="logoutForm" method="POST" action="{% url 'Logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
           <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{% url 'Test' %}">Give FeedBack</a>
           </li>
           {% if user.role == 'FACULTY' %}
+              
               <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{% url 'GetReview' %}">Get Review</a>
-              </li>
+                <a class="nav-link active" aria-current="page" href="{% url 'Report' %}">View Report</a>
+            </li>
+              
           {% endif %}
       {% else %}
           <li class="nav-item">

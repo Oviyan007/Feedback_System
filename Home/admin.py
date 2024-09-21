@@ -1,6 +1,6 @@
 # admin.py
 from django.contrib import admin
-from .models import UserProfile,User,Student_detail,Batch,FeedbackRes
+from .models import *
 
 # Register your models here.
 
@@ -10,7 +10,7 @@ from .models import UserProfile,User,Student_detail,Batch,FeedbackRes
 #     inlines=[AnswerInline]
 
 class StudentInline(admin.TabularInline):
-    model = Student_detail
+    model = Subject_detail
     extra = 5  # Set the number of empty forms to display
 
 # class BatchAdmin(admin.ModelAdmin):
@@ -26,7 +26,7 @@ admin.site.register(User)
 
 admin.site.register(FeedbackRes)
 
-admin.site.register(Student_detail)
+admin.site.register(Subject_detail)
 
 
 

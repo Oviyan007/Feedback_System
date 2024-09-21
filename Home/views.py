@@ -5,8 +5,10 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.views import LoginView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .forms import *
 
-from .models import UserProfile,Student_detail,Batch,FeedbackRes
+from .models import *
+
 
 
 
@@ -99,48 +101,97 @@ def profile(request):
     
 
 def test(request):
+    obj1 = Batch.objects.all()
     subjects = None
     labs = None
-    obj1 = Batch.objects.all()
 
     if request.method == 'POST':
         selected_batch_year = request.POST.get('year')
         selected_department = request.POST.get('department')
 
-        subjects = Student_detail.objects.filter(Batch__Batchyear=selected_batch_year, Batch__department=selected_department, sub_type='SUBJECT')
-        labs = Student_detail.objects.filter(Batch__Batchyear=selected_batch_year, Batch__department=selected_department, sub_type='LABORATORY')
+        subjects = Subject_detail.objects.filter(
+            Batch__Batchyear=selected_batch_year, 
+            Batch__department=selected_department, 
+            sub_type='SUBJECT'
+        )
+        labs = Subject_detail.objects.filter(
+            Batch__Batchyear=selected_batch_year,
+            Batch__department=selected_department,
+            sub_type='LABORATORY'
+        )
 
-        for sub in subjects:
-            for i in range(1, 11):  # Assuming 10 questions per subject
-                field_name = f"P{i}{sub.id}"
-                # print(field_name)
-                ans = request.POST.get(field_name)
-                print(ans)
-                print(f"Field name: {field_name}, Answer: {ans}")
-                
-                if ans:
-                    FeedbackRes.objects.create(
-                        year=selected_batch_year,
-                        department=selected_department,
-                        res=int(ans),
-                        Qno=i
-                    )
-        for lab in labs:
-            for i in range(1, 11):  # Assuming 10 questions per lab
-                field_name = f"L{i}{lab.id}"
-                ans = request.POST.get(field_name)
-                if ans:
-                    FeedbackRes.objects.create(
-                        year=selected_batch_year,
-                        department=selected_department,
-                        res=int(ans),
-                        Qno=i
-                    )
+        response_submitted = False
 
-    print("Feedback saved successfully.")
+        for key, value in request.POST.items():
+            if key.startswith('response_'):  # Check if the key corresponds to a feedback response
+                response_submitted = True
+                qno = key.split('_')[1]  # Extract the question number from the key
+                response = value  # Get the selected response value
+                subject_id = request.POST.get(f'subject_{qno}')
+                subject = Subject_detail.objects.get(id=subject_id)
 
-    return render(request, 'home/test.html', {'results': obj1, 'subjects': subjects, 'labs': labs})
+                # Create and save a Feedback object
+                feedback = FeedbackRes(
+                    department=selected_department,
+                    Response=int(response),
+                    Qno=int(qno),
+                    subject_detail=subject,
+                    batch_year=selected_batch_year
+                )
+                feedback.save()
+
+    form = OptionForm()
+
+    return render(request, 'home/fformnew.html', {
+        'results': obj1, 
+        'subjects': subjects, 
+        'labs': labs, 
+        'form': form
+    })
     
-    
+ #coutning the response
+
+
+def calculate_feedback_score():
+    # Count responses
+    average_count = FeedbackRes.objects.filter(Response=2).count()
+    good_count = FeedbackRes.objects.filter(Response=3).count()
+    very_good_count = FeedbackRes.objects.filter(Response=4).count()
+    excellent_count = FeedbackRes.objects.filter(Response=5).count()
+
+    # Calculate the weighted average using the given formula
+    if (average_count + good_count + very_good_count + excellent_count) == 0:
+        return 0  # Avoid division by zero
+
+    score = round((((average_count*2) + (good_count*3) + (very_good_count*4) + (excellent_count*5)) / 
+                ((average_count + good_count + very_good_count + excellent_count)*5)) * 5, 2)
+
+    return score
+
+def feedback_score_view(request):
+    score = calculate_feedback_score()
+    return render(request, 'home/score.html', {'score': score})
+
+
+# report generating
+def feedback_report_view(request):
+    # Count responses
+    average_count = FeedbackRes.objects.filter(Response=2).count()
+    good_count = FeedbackRes.objects.filter(Response=3).count()
+    very_good_count = FeedbackRes.objects.filter(Response=4).count()
+    excellent_count = FeedbackRes.objects.filter(Response=5).count()
+
+    # Pass the counts to the template
+    context = {
+        'average_count': average_count,
+        'good_count': good_count,
+        'very_good_count': very_good_count,
+        'excellent_count': excellent_count,
+    }
+
+    return render(request, 'home/report.html', context)
+
+
+   
 def submit(request):
     return render(request,'home/test.html')
