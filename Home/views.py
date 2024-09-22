@@ -101,7 +101,10 @@ def profile(request):
     
 
 def test(request):
-    obj1 = Batch.objects.all()
+    
+    obj2 = Batch.objects.all()
+    obj1 = Batch.objects.values('Batchyear').distinct()
+    
     subjects = None
     labs = None
 
@@ -143,7 +146,8 @@ def test(request):
     form = OptionForm()
 
     return render(request, 'home/fformnew.html', {
-        'results': obj1, 
+        'Batches': obj1,
+        'depart': obj2,
         'subjects': subjects, 
         'labs': labs, 
         'form': form

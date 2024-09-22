@@ -16,7 +16,7 @@
                     {% csrf_token %}
                     <select name="year" id="batchSelect">
                         <option>Select the batch</option>
-                        {% for ans in results %}
+                        {% for ans in Batches %}
                         
                             <option>{{ ans.Batchyear }}</option>
                         
@@ -24,7 +24,7 @@
                     </select>
                     <select name="department" id="departmentSelect">
                         <option>Select the department</option>
-                        {% for ans in results %}
+                        {% for ans in depart %}
                             <option>{{ ans.department }}</option>
                         {% endfor %}
                     </select>
