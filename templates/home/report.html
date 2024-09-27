@@ -5,52 +5,164 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feedback Report</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Flexbox for responsive layout */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px; /* Space between cards */
+        }
+
+        /* Card styles */
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px; /* Maximum width for each card */
+            margin: 10px;
+            background-color: white;
+        }
+
+        .card h4 {
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        /* Responsive canvas */
+        .feedbackChart {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+        }
+
+        /* Responsive typography */
+        h2 {
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                width: 100%; /* Stack cards in smaller screens */
+            }
+        }
+    </style>
 </head>
 <body>
-    {% block body  %}
+    {% block body %}
     {% include 'home/navbar.html' %}
-    <h1>Feedback Report</h1>
 
-    <canvas id="feedbackChart" width="400" height="200"></canvas>
+    <h2>Feedback Report</h2>
 
-    <script>
-        var ctx = document.getElementById('feedbackChart').getContext('2d');
-        var feedbackChart = new Chart(ctx, {
-            type: 'bar', // You can also use 'pie', 'line', etc.
-            data: {
-                labels: ['Average', 'Good', 'Very Good', 'Excellent'], // Labels for the categories
-                datasets: [{
-                    label: 'Feedback Responses',
-                    data: [
-                        {{ average_count|default:0 }},
-                        {{ good_count|default:0 }},
-                        {{ very_good_count|default:0 }},
-                        {{ excellent_count|default:0 }}
-                    ],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+    <!-- Card container for responsive layout -->
+    <div class="card-container">
+        <!-- Correct subject field reference -->
+        {% for subject in subject_feedback %}
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{ subject.subject_detail__sub_name }}</h4>
+                <!-- Unique ID for each chart -->
+                <canvas id="feedbackChart-{{ forloop.counter }}" class="feedbackChart"></canvas>
+            </div>
+
+            <script>
+                var ctx = document.getElementById('feedbackChart-{{ forloop.counter }}').getContext('2d');
+                var feedbackChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Average', 'Good', 'Very Good', 'Excellent'],
+                        datasets: [{
+                            label: 'Feedback Responses for {{ subject.subject_detail__sub_name }}',
+                            data: [
+                                {{ subject.average_count|default:0 }},
+                                {{ subject.good_count|default:0 }},
+                                {{ subject.very_good_count|default:0 }},
+                                {{ subject.excellent_count|default:0 }}
+                            ],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
                     }
-                }
-            }
-        });
-    </script>
+                });
+            </script>
+        </div>
+        {% endfor %}
+        
+    </div>
+    <hr>
+    <h2 class="card-title">Faculty-Wise Feedback Report</h2>
+
+    <!-- Card container for faculty feedback charts -->
+    <div class="card-container">
+        {% for faculty in faculty_feedback %}
+        <div class="card">
+            <h3>{{ faculty.staff__name }} <br> (Subject: {{ faculty.subject_detail__sub_name }})</h3>
+
+            <!-- Unique canvas for each faculty chart -->
+            <canvas id="facultyChart-{{ forloop.counter }}" class="feedbackChart"></canvas>
+
+            <script>
+                var ctx = document.getElementById('facultyChart-{{ forloop.counter }}').getContext('2d');
+                var facultyChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Average', 'Good', 'Very Good', 'Excellent'],
+                        datasets: [{
+                            label: 'Feedback for {{ faculty.staff__name }} ({{ faculty.subject_detail__sub_name }})',
+                            data: [
+                                {{ faculty.average_count|default:0 }},
+                                {{ faculty.good_count|default:0 }},
+                                {{ faculty.very_good_count|default:0 }},
+                                {{ faculty.excellent_count|default:0 }}
+                            ],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
+        </div>
+        {% endfor %}
+    </div>
+
     {% endblock %}
 </body>
 </html>

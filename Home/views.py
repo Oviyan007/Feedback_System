@@ -8,6 +8,9 @@ from django.contrib.auth.decorators import login_required
 from .forms import *
 
 from .models import *
+from django.db.models import Count,Q
+
+
 
 
 
@@ -107,7 +110,8 @@ def test(request):
     
     subjects = None
     labs = None
-
+    if request.session.get('has_submitted', False):
+        return render(request, 'home/Thankyou.html')  # Display a thank you page if already submitted
     if request.method == 'POST':
         selected_batch_year = request.POST.get('year')
         selected_department = request.POST.get('department')
@@ -179,21 +183,32 @@ def feedback_score_view(request):
 
 # report generating
 def feedback_report_view(request):
-    # Count responses
-    average_count = FeedbackRes.objects.filter(Response=2).count()
-    good_count = FeedbackRes.objects.filter(Response=3).count()
-    very_good_count = FeedbackRes.objects.filter(Response=4).count()
-    excellent_count = FeedbackRes.objects.filter(Response=5).count()
+    # Subject-wise feedback aggregation
+    subject_feedback = FeedbackRes.objects.values('subject_detail__sub_name').annotate(
+        average_count=Count('Response', filter=Q(Response=2)),
+        good_count=Count('Response', filter=Q(Response=3)),
+        very_good_count=Count('Response', filter=Q(Response=4)),
+        excellent_count=Count('Response', filter=Q(Response=5))
+    )
 
-    # Pass the counts to the template
+    # Faculty-wise feedback aggregation
+    faculty_feedback = FeedbackRes.objects.values(
+        'staff__name', 'subject_detail__sub_name'
+    ).annotate(
+        average_count=Count('Response', filter=Q(Response=2)),
+        good_count=Count('Response', filter=Q(Response=3)),
+        very_good_count=Count('Response', filter=Q(Response=4)),
+        excellent_count=Count('Response', filter=Q(Response=5))
+    )
+
+    # Pass both subject-wise and faculty-wise feedback data to the template
     context = {
-        'average_count': average_count,
-        'good_count': good_count,
-        'very_good_count': very_good_count,
-        'excellent_count': excellent_count,
+        'subject_feedback': subject_feedback,
+        'faculty_feedback': faculty_feedback,
     }
 
     return render(request, 'home/report.html', context)
+
 
 
    

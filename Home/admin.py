@@ -27,6 +27,7 @@ admin.site.register(User)
 admin.site.register(FeedbackRes)
 
 admin.site.register(Subject_detail)
+admin.site.register(Staff)
 
 
 
