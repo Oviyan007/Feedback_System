@@ -68,4 +68,4 @@ class FeedbackRes(models.Model):
     Qno=models.IntegerField(null=True)
     subject_detail = models.ForeignKey('Subject_detail', on_delete=models.CASCADE, null=True)
     batch_year = models.CharField(max_length=10,null=False)
-    staff = models.ForeignKey(Staff, on_delete=models.CASCADE,null=True)#newly added
+    

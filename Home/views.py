@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import *
 
 from .models import *
-from django.db.models import Count,Q
+from django.db.models import Count,Q,Avg
 
 
 
@@ -80,30 +80,8 @@ def profile(request):
 
    
     
-# @login_required
-# def feedback_view(request):
-#     subjects = None
-#     obj1 = Batch.objects.all()
-#     labs=None
-
-#     if request.method == 'POST':
-#         selected_batch_year = request.POST.get('year')
-#         selected_department = request.POST.get('department')
-
-#         subjects = Student_detail.objects.filter(Batch__Batchyear=selected_batch_year, Batch__department=selected_department,sub_type='SUBJECT')
-#         labs=Student_detail.objects.filter(
-#             Batch__Batchyear=selected_batch_year,
-#             Batch__department=selected_department,
-#             sub_type='LABORATORY'
-#         )
-        
-    
-#     return render(request, 'home/test.html', {'results': obj1, 'subjects': subjects,'labs':labs})
-    
-
-    
-
-def test(request):
+@login_required
+def feedback_view(request):
     
     obj2 = Batch.objects.all()
     obj1 = Batch.objects.values('Batchyear').distinct()
@@ -175,38 +153,54 @@ def calculate_feedback_score():
                 ((average_count + good_count + very_good_count + excellent_count)*5)) * 5, 2)
 
     return score
-
+@login_required
 def feedback_score_view(request):
     score = calculate_feedback_score()
     return render(request, 'home/score.html', {'score': score})
 
 
 # report generating
+@login_required
 def feedback_report_view(request):
-    # Subject-wise feedback aggregation
-    subject_feedback = FeedbackRes.objects.values('subject_detail__sub_name').annotate(
-        average_count=Count('Response', filter=Q(Response=2)),
-        good_count=Count('Response', filter=Q(Response=3)),
-        very_good_count=Count('Response', filter=Q(Response=4)),
-        excellent_count=Count('Response', filter=Q(Response=5))
-    )
+    obj2 = Batch.objects.all()
+    obj1 = Batch.objects.values('Batchyear').distinct()
+    
+  
+    selected_batch = request.POST.get('batch_year', None)
+    selected_department = request.POST.get('department', None)
 
-    # Faculty-wise feedback aggregation
-    faculty_feedback = FeedbackRes.objects.values(
-        'staff__name', 'subject_detail__sub_name'
-    ).annotate(
-        average_count=Count('Response', filter=Q(Response=2)),
-        good_count=Count('Response', filter=Q(Response=3)),
-        very_good_count=Count('Response', filter=Q(Response=4)),
-        excellent_count=Count('Response', filter=Q(Response=5))
-    )
+    feedback_query = FeedbackRes.objects.all()
 
-    # Pass both subject-wise and faculty-wise feedback data to the template
+    if selected_batch:
+        feedback_query = feedback_query.filter(batch_year=selected_batch)
+    
+    if selected_department:
+        feedback_query = feedback_query.filter(department=selected_department)
+        
+
+    subject_feedback = feedback_query.values('subject_detail__sub_name','subject_detail__sub_code',).annotate(
+        average_count=Count('Response', filter=models.Q(Response=2)),
+        good_count=Count('Response', filter=models.Q(Response=3)),
+        very_good_count=Count('Response', filter=models.Q(Response=4)),
+        excellent_count=Count('Response', filter=models.Q(Response=5)),
+        average_score=Avg('Response'),
+       
+    )
+    #code for faculty name...
+    # For each subject, find the related staff using the ManyToMany relationship
+    for feedback in subject_feedback:
+        subject = Subject_detail.objects.get(sub_code=feedback['subject_detail__sub_code'])
+        feedback['staff_names'] = ', '.join([staff.name for staff in subject.staff_handling.all()])
+
     context = {
         'subject_feedback': subject_feedback,
-        'faculty_feedback': faculty_feedback,
+        'Batches': obj1,
+        'depart': obj2,
+        'selected_batch': selected_batch,
+        'selected_department': selected_department,
+        
     }
-
+    
     return render(request, 'home/report.html', context)
 
 

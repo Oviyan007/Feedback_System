@@ -12,6 +12,7 @@
     color:orange;
 }
 
+
 h1{
   position: absolute;
   top: 50%;
@@ -33,3 +34,39 @@ h1{
     left: 50%;
     transform: translate(-50%,-50%);
 }
+
+
+
+/* code for footer  */
+
+
+.footer {
+    background-color: #198754;
+    position: fixed;
+}
+
+.footer-content h2 {
+    color: #fff;
+}
+
+.footer-content h5,
+.footer-content p,
+.footer-links a {
+    color: #fff;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.footer hr {
+    background-color: #fff;
+}
+/* code for footer  end */
+.carousel-item img {
+    object-fit: cover;
+    object-position: top;
+    height: 60vh;
+    overflow: hidden;
+  }
+  
